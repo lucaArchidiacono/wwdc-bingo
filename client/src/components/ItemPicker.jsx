@@ -15,6 +15,7 @@ export default function ItemPicker({ items, selectedIds, onToggle, readOnly = fa
               disabled={readOnly}
               onChange={() => onToggle?.(it.id)}
             />
+            {it.imageUrl && <img className="item-thumb" src={it.imageUrl} alt="" />}
             <span className="label">
               {it.label}
               {showHappened && it.happened && <span className="ok"> ✓ happened</span>}

@@ -5,6 +5,7 @@ const catalogItemSchema = new mongoose.Schema(
     roomId: { type: mongoose.Schema.Types.ObjectId, ref: 'Room', required: true, index: true },
     label: { type: String, required: true, trim: true },
     points: { type: Number, required: true, min: 1, max: 24 },
+    imageUrl: { type: String, default: '', trim: true },
     happened: { type: Boolean, default: false },
     occurredAt: { type: Date, default: null },
   },

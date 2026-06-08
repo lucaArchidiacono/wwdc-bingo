@@ -12,3 +12,10 @@ export function generateRoomCode(len = 6) {
 export function normalizeRoomCode(input) {
   return String(input || '').trim().toUpperCase();
 }
+
+// Custom (admin-chosen) codes: 4–12 uppercase letters/digits.
+const CUSTOM_CODE_RE = /^[A-Z0-9]{4,12}$/;
+
+export function isValidCustomCode(code) {
+  return CUSTOM_CODE_RE.test(code);
+}

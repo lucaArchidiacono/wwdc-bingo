@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '../api.js';
 
 export default function JoinRoom() {
@@ -10,6 +10,10 @@ export default function JoinRoom() {
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
   const qc = useQueryClient();
+  const publicRooms = useQuery({
+    queryKey: ['public-rooms'],
+    queryFn: () => api.get('/api/rooms/public'),
+  });
 
   async function submit(e) {
     e.preventDefault();
@@ -52,6 +56,26 @@ export default function JoinRoom() {
         </div>
         {error && <div className="error">{prettyError(error)}</div>}
       </form>
+
+      {publicRooms.data?.rooms?.length > 0 && (
+        <div className="panel">
+          <h2 style={{ marginTop: 0 }}>Public rooms</h2>
+          <p className="muted" style={{ marginTop: 0 }}>Pick one to fill in its code.</p>
+          <div className="item-list">
+            {publicRooms.data.rooms.map((r) => (
+              <button
+                key={r.code}
+                className="item public-room-row"
+                onClick={() => setRoomCode(r.code)}
+              >
+                <span className="label">{r.name}</span>
+                {r.status === 'live' && <span className="ok">● live</span>}
+                <span className="code-pill">{r.code}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

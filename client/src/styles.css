@@ -150,4 +150,29 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 .room-card:hover { border-color: var(--accent); }
 
-.admin-row { display: grid; grid-template-columns: 1fr 80px auto auto; gap: 8px; align-items: center; }
+.admin-row { display: grid; grid-template-columns: 1fr 90px 1.4fr auto; gap: 8px; align-items: end; }
+.admin-row button { height: 41px; }
+
+.checkbox-row { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--text); cursor: pointer; }
+.checkbox-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); }
+.checkbox-row span { font-size: 14px; }
+
+.tag {
+  display: inline-block; padding: 1px 8px; border-radius: 999px;
+  font-size: 12px; border: 1px solid var(--border); color: var(--muted);
+  background: var(--panel-2); letter-spacing: 0.02em;
+}
+.tag-public { color: var(--good); border-color: var(--good); }
+
+.item-thumb {
+  width: 44px; height: 44px; object-fit: cover; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--bg); flex-shrink: 0;
+}
+
+.item-editing { flex-direction: column; align-items: stretch; cursor: default; }
+.item-edit-fields { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
+.item-edit-fields > div:first-child { flex: 1; min-width: 160px; }
+.item-edit-fields label { margin-top: 0; }
+
+.public-room-row { width: 100%; text-align: left; }
+.public-room-row:hover { border-color: var(--accent); }
