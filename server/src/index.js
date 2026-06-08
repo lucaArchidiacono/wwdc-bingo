@@ -1,4 +1,6 @@
 import 'dotenv/config';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
 import cookieSession from 'cookie-session';
 import { connectDb } from './db.js';
@@ -32,6 +34,14 @@ app.use('/api/rooms', roomsRouter);
 app.use('/api/catalog', catalogRouter);
 app.use('/api/cards', cardsRouter);
 app.use('/api/rooms', leaderboardRouter);
+
+// Serve built client (single-origin) with SPA fallback
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const clientDist = path.resolve(__dirname, '../../client/dist');
+app.use(express.static(clientDist));
+app.get(/^\/(?!api\/).*/, (req, res) => {
+  res.sendFile(path.join(clientDist, 'index.html'));
+});
 
 app.use((err, req, res, _next) => {
   if (err && err.status) return res.status(err.status).json({ error: err.message });
